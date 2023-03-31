@@ -8,7 +8,7 @@ func (gui *Gui) branchesRenderToMain() error {
 	if branch == nil {
 		task = types.NewRenderStringTask(gui.c.Tr.NoBranchesThisRepo)
 	} else {
-		cmdObj := gui.git.Branch.GetGraphCmdObj(branch.FullRefName())
+		cmdObj := gui.git.Branch.GetGraphCmdObj(branch.FullRefName(), branch.RefName())
 
 		task = types.NewRunPtyTask(cmdObj.GetCmd())
 	}

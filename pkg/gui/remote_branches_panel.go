@@ -8,7 +8,7 @@ func (gui *Gui) remoteBranchesRenderToMain() error {
 	if remoteBranch == nil {
 		task = types.NewRenderStringTask("No branches for this remote")
 	} else {
-		cmdObj := gui.git.Branch.GetGraphCmdObj(remoteBranch.FullRefName())
+		cmdObj := gui.git.Branch.GetGraphCmdObj(remoteBranch.FullRefName(), remoteBranch.RefName())
 		task = types.NewRunCommandTask(cmdObj.GetCmd())
 	}
 

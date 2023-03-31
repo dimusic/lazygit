@@ -91,14 +91,15 @@ func (self *BranchCommands) Checkout(branch string, options CheckoutOptions) err
 // GetGraph gets the color-formatted graph of the log for the given branch
 // Currently it limits the result to 100 commits, but when we get async stuff
 // working we can do lazy loading
-func (self *BranchCommands) GetGraph(branchName string) (string, error) {
-	return self.GetGraphCmdObj(branchName).DontLog().RunWithOutput()
+func (self *BranchCommands) GetGraph(fullBranchName string, shortBranchName string) (string, error) {
+	return self.GetGraphCmdObj(fullBranchName, shortBranchName).DontLog().RunWithOutput()
 }
 
-func (self *BranchCommands) GetGraphCmdObj(branchName string) oscommands.ICmdObj {
+func (self *BranchCommands) GetGraphCmdObj(fullBranchName string, shortBranchName string) oscommands.ICmdObj {
 	branchLogCmdTemplate := self.UserConfig.Git.BranchLogCmd
 	templateValues := map[string]string{
-		"branchName": self.cmd.Quote(branchName),
+		"branchName": self.cmd.Quote(fullBranchName),
+        "shortBranchName": self.cmd.Quote(shortBranchName),
 	}
 	return self.cmd.New(utils.ResolvePlaceholderString(branchLogCmdTemplate, templateValues)).DontLog()
 }

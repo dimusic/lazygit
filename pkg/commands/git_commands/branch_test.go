@@ -149,7 +149,7 @@ func TestBranchGetBranchGraph(t *testing.T) {
 		"log", "--graph", "--color=always", "--abbrev-commit", "--decorate", "--date=relative", "--pretty=medium", "test", "--",
 	}, "", nil)
 	instance := buildBranchCommands(commonDeps{runner: runner})
-	_, err := instance.GetGraph("test")
+	_, err := instance.GetGraph("ref/heads/test", "test")
 	assert.NoError(t, err)
 }
 
